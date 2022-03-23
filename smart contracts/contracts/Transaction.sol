@@ -4,30 +4,65 @@ pragma solidity ^0.8.0;
 import "hardhat/console.sol";
 
 contract Transaction {
-    uint transactionCount;
-    event Transfer(address from, address receiver,uint amount,uint timestamp,string keyword,string message )
+    uint256 transactionCount;
+
+    event Transfer(
+        address from,
+        address receiver,
+        uint256 amount,
+        string message,
+        uint256 timestamp,
+        string keyword
+    );
 
     struct TransferStruct {
-       address from;
-       address receiver;
-       uint amount;
-       uint timestamp;
-       string keyword;
-       string message;
-   }
-   Transfer[] transactions;
-
-    function addToBlockchain(address payable receiver,uint amount,uint timestamp,string memory keyword,string memory message) public {
-        transactionCount += 1;
-        transactions.push(msg.sender, receiver, amount, block.timestamp, keyword, message);
-        emit Transfer(msg.sender, receiver, amount, block.timestamp, keyword, message);
+        address sender;
+        address receiver;
+        uint256 amount;
+        string message;
+        uint256 timestamp;
+        string keyword;
     }
 
-    function getAllTransactions() public view returns(TransferStruct[] memory){
+    TransferStruct[] transactions;
+
+    function addToBlockchain(
+        address payable receiver,
+        uint256 amount,
+        string memory message,
+        string memory keyword
+    ) public {
+        transactionCount += 1;
+        transactions.push(
+            TransferStruct(
+                msg.sender,
+                receiver,
+                amount,
+                message,
+                block.timestamp,
+                keyword
+            )
+        );
+
+        emit Transfer(
+            msg.sender,
+            receiver,
+            amount,
+            message,
+            block.timestamp,
+            keyword
+        );
+    }
+
+    function getAllTransactions()
+        public
+        view
+        returns (TransferStruct[] memory)
+    {
         return transactions;
     }
 
-    function getTransactionCount() public view returns(uint) {
+    function getTransactionCount() public view returns (uint256) {
         return transactionCount;
     }
 }
