@@ -2,15 +2,16 @@ import React, { useContext } from 'react'
 import { TransactionContext } from './../context/TransactionContext'
 
 const Welcome = () => {
-    const value = useContext(TransactionContext)
-    console.log(value)
+    const { connectWallet } = useContext(TransactionContext)
     const companyCommonStyles = "min-h-[70px] sm:px-0 px-2 sm:min-w-[120px] flex justify-center items-center border-[0.5px] border-white text-sm font-light text-white";
     return (
         <div className="flex justify-around">
             <div>
                 <h1 className="text-2xl">Send Crytos around the world</h1>
                 <span>Explore Cryto currencies , Sell and Buy Cryptos with a click</span>
-                <button className="m-3.5 bg-blue-700 text-white font-semibold py-2 px-4 rounded">Connect Wallet</button>
+                <button type="button"
+                    onClick={connectWallet}
+                    className="m-3.5 bg-blue-700 text-white font-semibold py-2 px-4 rounded">Connect Wallet</button>
                 <div className="grid sm:grid-cols-3 grid-cols-2 w-full mt-10">
                     <div className={`rounded-tl-2xl ${companyCommonStyles}`}>
                         Reliability
