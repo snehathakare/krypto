@@ -1,6 +1,9 @@
-import React from 'react'
+import React, { useContext } from 'react'
+import { TransactionContext } from './../context/TransactionContext'
 
 const Welcome = () => {
+    const value = useContext(TransactionContext)
+    console.log(value)
     const companyCommonStyles = "min-h-[70px] sm:px-0 px-2 sm:min-w-[120px] flex justify-center items-center border-[0.5px] border-white text-sm font-light text-white";
     return (
         <div className="flex justify-around">
@@ -27,7 +30,7 @@ const Welcome = () => {
             </div>
 
             <div>
-                <div class="h-14 bg-gradient-to-r from-violet-500 to-fuchsia-500 my-3.5 rounded flex-col items-center">
+                <div className="h-14 bg-gradient-to-r from-violet-500 to-fuchsia-500 my-3.5 rounded flex-col items-center">
                     <p>Address</p>
                     <p>Ethereum</p>
                 </div>
