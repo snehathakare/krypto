@@ -2,8 +2,13 @@ import React, { useContext } from 'react'
 import { TransactionContext } from './../context/TransactionContext'
 
 const Welcome = () => {
-    const { connectWallet } = useContext(TransactionContext)
+    const { connectWallet, addressTo, amount, keyword, message, sendTransaction, formData, handleChange } = useContext(TransactionContext)
     const companyCommonStyles = "min-h-[70px] sm:px-0 px-2 sm:min-w-[120px] flex justify-center items-center border-[0.5px] border-white text-sm font-light text-white";
+    const handleSubmit = (e) => {
+        const { addressTo, amount, keyword, message } = formData
+        e.preventDefault();
+        sendTransaction();
+    }
     return (
         <div className="flex justify-around">
             <div>
@@ -37,10 +42,11 @@ const Welcome = () => {
                 </div>
 
                 <div className="p-5 sm:w-96 w-full flex flex-col justify-start bg-blue-400">
-                    <input className="my-1.5 p-1.5 rounded bg-black" placeholder="Address To" />
-                    <input className="my-1.5 p-1.5 rounded bg-black" placeholder="Amount ETH" />
-                    <input className="my-1.5 p-1.5 rounded bg-black" placeholder="Keyword" />
-                    <input className="my-1.5 p-1.5 rounded bg-black" placeholder="Enter Message" />
+                    <input className="my-1.5 p-1.5 rounded bg-black" placeholder="Address To" name="addressTo" value={addressTo} type="text" handleChange={handleChange} />
+                    <input className="my-1.5 p-1.5 rounded bg-black" placeholder="Amount ETH" name="amount" value={amount} type="text" handleChange={handleChange} />
+                    <input className="my-1.5 p-1.5 rounded bg-black" placeholder="Keyword" name="keyword" value={keyword} type="text" handleChange={handleChange} />
+                    <input className="my-1.5 p-1.5 rounded bg-black" placeholder="Enter Message" name="message" value={message} type="text" handleChange={handleChange} />
+                    <button className="submit" onClick={handleSubmit}>Send</button>
                 </div>
             </div>
         </div >

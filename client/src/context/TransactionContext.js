@@ -10,7 +10,7 @@ const getEthereumContract = () => {
     const signer = provider.getSigner();
     const transactionContract = new ethers.Contract(contractAddress, contractAbi, signer);
 
-    console.log({
+    console.log("test", {
         provider,
         signer,
         transactionContract
@@ -19,6 +19,8 @@ const getEthereumContract = () => {
 
 export const TransactionProvider = ({ children }) => {
     const [currentAccount, setCurrentAccount] = useState('')
+    const [formData, setformData] = useState({ addressTo: '', amount: '', keyword: '', message: '' })
+
 
     const checkIfWalletIsConnected = async () => {
         if (!ethereum) return alert('Please install Metamask')
@@ -41,12 +43,29 @@ export const TransactionProvider = ({ children }) => {
         }
     };
 
+    const sendTransaction = async () => {
+        try {
+            if (!ethereum) return alert("Please install MetaMask.");
+            //add transaction logic
+            const { addressTo, amount, keyword, message } = formData
+            getEthereumContract();
+        } catch (error) {
+            console.log(error);
+
+            throw new Error("No ethereum object");
+        }
+    };
+
+    const handleChange = (e, name) => {
+        setformData((prevState) => ({ ...prevState, [name]: e.target.value }));
+    }
+
     useEffect(() => {
         checkIfWalletIsConnected()
     }, []);
 
     return (
-        <TransactionContext.Provider value={{ connectWallet }}>
+        <TransactionContext.Provider value={{ connectWallet, sendTransaction, formData, currentAccount, setformData, handleChange }}>
             {children}
         </TransactionContext.Provider>
     );
