@@ -22,11 +22,13 @@ export const TransactionProvider = ({ children }) => {
     const [formData, setformData] = useState({ addressTo: '', amount: '', keyword: '', message: '' })
     const [isLoading, setIsLoading] = useState(false);
     const [transactionCount, setTransactionCount] = useState(localStorage.getItem("transactionCount"));
+    const [walletCheck, setWalletCheck] = useState('Connect Wallet')
 
     const checkIfWalletIsConnected = async () => {
         if (!ethereum) return alert('Please install Metamask')
         const accounts = await ethereum.request({ method: 'eth_accounts' })
         console.log(accounts)
+        setWalletCheck("Disconnect Wallet")
     }
 
     const connectWallet = async () => {
@@ -97,7 +99,7 @@ export const TransactionProvider = ({ children }) => {
     }, []);
 
     return (
-        <TransactionContext.Provider value={{ connectWallet, sendTransaction, formData, currentAccount, setformData, handleChange }}>
+        <TransactionContext.Provider value={{ connectWallet, sendTransaction, formData, currentAccount, setformData, handleChange, walletCheck }}>
             {children}
         </TransactionContext.Provider>
     );

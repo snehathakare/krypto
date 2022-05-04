@@ -2,7 +2,7 @@ import React, { useContext } from 'react'
 import { TransactionContext } from './../context/TransactionContext'
 
 const Welcome = () => {
-    const { connectWallet, addressTo, amount, keyword, message, sendTransaction, formData, handleChange } = useContext(TransactionContext)
+    const { connectWallet, addressTo, amount, keyword, message, sendTransaction, formData, handleChange, walletCheck } = useContext(TransactionContext)
     const companyCommonStyles = "min-h-[70px] sm:px-0 px-2 sm:min-w-[120px] flex justify-center items-center border-[0.5px] border-white text-sm font-light text-white";
     const handleSubmit = (e) => {
         const { addressTo, amount, keyword, message } = formData
@@ -16,7 +16,7 @@ const Welcome = () => {
                 <span>Explore Cryto currencies , Sell and Buy Cryptos with a click</span>
                 <button type="button"
                     onClick={connectWallet}
-                    className="m-3.5 bg-blue-700 text-white font-semibold py-2 px-4 rounded">Connect Wallet</button>
+                    className="m-3.5 bg-blue-700 text-white font-semibold py-2 px-4 rounded">{walletCheck}</button>
                 <div className="grid sm:grid-cols-3 grid-cols-2 w-full mt-10">
                     <div className={`rounded-tl-2xl ${companyCommonStyles}`}>
                         Reliability
